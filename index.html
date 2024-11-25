@@ -31,9 +31,10 @@
         }
         .nav {
             display: flex;
-            justify-content: space-around;
-            padding: 10px 0;
+            overflow-x: auto;
+            white-space: nowrap;
             background-color: #FFA500;
+            padding: 10px 0;
             z-index: 1000;
         }
         .nav a {
@@ -42,6 +43,7 @@
             font-size: 18px;
             font-weight: bold;
             padding: 5px 15px;
+            flex-shrink: 0; /* Impede que os itens encolham */
         }
         .nav a:hover {
             background-color: #f79c42;
@@ -95,75 +97,6 @@
             background-color: #f1f1f1;
         }
         .price {
-            font-weight: bold;
-            color: #FFA500;
-        }
-        .cart {
-            margin-top: 20px;
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 300px;
-            box-sizing: border-box;
-        }
-        .cart h3 {
-            margin-top: 0;
-        }
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        .cart-item span {
-            margin: 0 10px;
-        }
-        .cart-item button {
-            padding: 5px 10px;
-            font-size: 14px;
-            border: none;
-            background-color: #FFA500;
-            color: white;
-            cursor: pointer;
-            margin: 0 5px;
-        }
-        .cart-item button:hover {
-            background-color: #f79c42;
-        }
-        .total {
-            font-size: 20px;
-            font-weight: bold;
-            margin-top: 10px;
-            text-align: right;
-            color: #FFA500;
-        }
-        .payment-options {
-            margin-top: 20px;
-            text-align: center;
-        }
-        .payment-options button {
-            background-color: #FFA500;
-            color: white;
-            font-size: 14px;
-            padding: 10px;
-            margin: 5px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .payment-options button:hover {
-            background-color: #f79c42;
-        }
-        #money-field {
-            display: none;
-            margin-top: 10px;
-        }
-        #pix-code {
-            display: none;
-            margin-top: 10px;
             font-weight: bold;
             color: #FFA500;
         }
