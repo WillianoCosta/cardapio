@@ -168,26 +168,19 @@
             color: #FFA500;
         }
     
-        @media screen and (max-width: 768px) {
+       @media screen and (max-width: 768px) {
     .nav {
         display: flex;
         justify-content: flex-start; /* Alinha os itens à esquerda */
         padding: 10px 5px; /* Maior espaçamento para dispositivos móveis */
         background-color: #FFA500;
         z-index: 1000;
-        overflow-x: auto; /* Adiciona scroll horizontal, mas só quando necessário */
-        white-space: nowrap; /* Evita quebra de linha nos itens */
+        overflow-x: scroll; /* Scroll horizontal ativo */
+        white-space: nowrap; /* Impede a quebra de linha dos itens */
         -webkit-overflow-scrolling: touch; /* Scroll suave em dispositivos móveis */
     }
     .nav::-webkit-scrollbar {
-        height: 5px; /* Altura da barra de rolagem */
-    }
-    .nav::-webkit-scrollbar-thumb {
-        background: #555; /* Cor da "bolinha" da barra de rolagem */
-        border-radius: 10px; /* Deixa a barra arredondada */
-    }
-    .nav::-webkit-scrollbar-track {
-        background: #ddd; /* Fundo da barra de rolagem */
+        display: none; /* Esconde a barra de rolagem em navegadores baseados em WebKit */
     }
     .nav-item {
         display: inline-block; /* Cada item ocupa espaço contínuo */
@@ -202,7 +195,7 @@
         background-color: #FF7F50; /* Destaque ao passar o mouse */
         border-radius: 5px; /* Deixa os itens arredondados */
     }
-}
+} 
 
 
         @media screen and (max-width:768px) {
