@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Empório Burger - Cardápio Digital</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -165,6 +166,57 @@
             margin-top: 10px;
             font-weight: bold;
             color: #FFA500;
+        }
+    
+        @media screen and (max-width: 768px) {
+    .nav {
+        display: flex;
+        justify-content: flex-start; /* Alinha os itens à esquerda */
+        padding: 10px 5px; /* Maior espaçamento para dispositivos móveis */
+        background-color: #FFA500;
+        z-index: 1000;
+        overflow-x: auto; /* Adiciona scroll horizontal, mas só quando necessário */
+        white-space: nowrap; /* Evita quebra de linha nos itens */
+        -webkit-overflow-scrolling: touch; /* Scroll suave em dispositivos móveis */
+    }
+    .nav::-webkit-scrollbar {
+        height: 5px; /* Altura da barra de rolagem */
+    }
+    .nav::-webkit-scrollbar-thumb {
+        background: #555; /* Cor da "bolinha" da barra de rolagem */
+        border-radius: 10px; /* Deixa a barra arredondada */
+    }
+    .nav::-webkit-scrollbar-track {
+        background: #ddd; /* Fundo da barra de rolagem */
+    }
+    .nav-item {
+        display: inline-block; /* Cada item ocupa espaço contínuo */
+        padding: 10px 15px; /* Espaçamento maior para facilitar o toque */
+        color: white;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+    }
+    .nav-item:hover {
+        background-color: #FF7F50; /* Destaque ao passar o mouse */
+        border-radius: 5px; /* Deixa os itens arredondados */
+    }
+}
+
+
+        @media screen and (max-width:768px) {
+            .nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: bold;
+            padding: 5px 15px;
+        }
+        }
+            @media screen and (max-width: 768px) {
+                
+            }
         }
     </style>
 </head>
