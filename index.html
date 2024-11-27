@@ -3,457 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Empório Burger - Cardápio Digital</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #fff;
-            margin: 0;
-            padding: 0;
-            color: #333;
-        }
-        header {
-            background-color: #000;
-            color: white;
-            padding: 20px 0;
-            text-align: center;
-        }
-        header h1 {
-            font-size: 32px;
-            color: #FFA500;
-        }
-        header img {
-            position: absolute;
-            left: 20px;
-            top: 20px;
-            height: 50px;
-        }
-        .nav {
-            display: flex;
-            justify-content: space-around;
-            padding: 10px 0;
-            background-color: #FFA500;
-            z-index: 1000;
-        }
-        .nav a {
-            color: white;
-            text-decoration: none;
-            font-size: 18px;
-            font-weight: bold;
-            padding: 5px 15px;
-        }
-        .nav a:hover {
-            background-color: #f79c42;
-            border-radius: 5px;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: white;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .table-selection {
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .table-selection button {
-            background-color: #FFA500;
-            color: white;
-            font-size: 14px;
-            padding: 10px;
-            margin: 5px;
-            border-radius: 5px;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .table-selection button:hover {
-            background-color: #f79c42;
-        }
-        .menu-category {
-            margin-top: 40px;
-            display: none;
-        }
-        .menu-category h2 {
-            text-transform: uppercase;
-            font-size: 24px;
-            color: #FFA500;
-            border-bottom: 2px solid #f4f4f4;
-            padding-bottom: 10px;
-        }
-        .menu-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid #f4f4f4;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        .menu-item:hover {
-            background-color: #f1f1f1;
-        }
-        .price {
-            font-weight: bold;
-            color: #FFA500;
-        }
-        .cart {
-            margin-top: 20px;
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 300px;
-            box-sizing: border-box;
-        }
-        .cart h3 {
-            margin-top: 0;
-        }
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        .cart-item span {
-            margin: 0 10px;
-        }
-        .cart-item button {
-            padding: 5px 10px;
-            font-size: 14px;
-            border: none;
-            background-color: #FFA500;
-            color: white;
-            cursor: pointer;
-            margin: 0 5px;
-        }
-        .cart-item button:hover {
-            background-color: #f79c42;
-        }
-        .total {
-            font-size: 20px;
-            font-weight: bold;
-            margin-top: 10px;
-            text-align: right;
-            color: #FFA500;
-        }
-        .payment-options {
-            margin-top: 20px;
-            text-align: center;
-        }
-        .payment-options button {
-            background-color: #FFA500;
-            color: white;
-            font-size: 14px;
-            padding: 10px;
-            margin: 5px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .payment-options button:hover {
-            background-color: #f79c42;
-        }
-        #money-field {
-            display: none;
-            margin-top: 10px;
-        }
-        #pix-code {
-            display: none;
-            margin-top: 10px;
-            font-weight: bold;
-            color: #FFA500;
-        }
-    
-       @media screen and (max-width: 768px) {
-    .nav {
-        display: flex;
-        justify-content: flex-start; /* Alinha os itens à esquerda */
-        padding: 10px 5px; /* Maior espaçamento para dispositivos móveis */
-        background-color: #FFA500;
-        z-index: 1000;
-        overflow-x: scroll; /* Scroll horizontal ativo */
-        white-space: nowrap; /* Impede a quebra de linha dos itens */
-        -webkit-overflow-scrolling: touch; /* Scroll suave em dispositivos móveis */
-    }
-    .nav::-webkit-scrollbar {
-        display: none; /* Esconde a barra de rolagem em navegadores baseados em WebKit */
-    }
-    .nav-item {
-        display: inline-block; /* Cada item ocupa espaço contínuo */
-        padding: 10px 15px; /* Espaçamento maior para facilitar o toque */
-        color: white;
-        text-decoration: none;
-        font-size: 16px;
-        font-weight: bold;
-        text-align: center;
-    }
-    .nav-item:hover {
-        background-color: #FF7F50; /* Destaque ao passar o mouse */
-        border-radius: 5px; /* Deixa os itens arredondados */
-    }
-} 
-
-
-        @media screen and (max-width:768px) {
-            .nav a {
-            color: white;
-            text-decoration: none;
-            font-size: 15px;
-            font-weight: bold;
-            padding: 5px 15px;
-        }
-        }
-            @media screen and (max-width: 768px) {
-                
-            }
-        }
-    </style>
+    <title>Empório Burguer - Cardápio Digital</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <header>
+        <h1>Empório Burguer</h1>
+        <p>Escolha sua mesa e faça seu pedido!</p>
+    </header>
 
-<header>
-    <img src="emp.png" alt="Empório Burger Logo"> 
-    <h1>Empório Burger</h1>
-    <p>Cardápio Digital Interativo</p>
-</header>
+    <main>
+        <!-- Seleção de Mesa -->
+        <section class="table-selection">
+            <label for="table-number">Número da Mesa:</label>
+            <input type="number" id="table-number" placeholder="Digite aqui..." min="1">
+            <button onclick="startOrder()">Iniciar Pedido</button>
+        </section>
 
-<!-- Barra de navegação (Categorias) -->
-<div class="nav">
-    <a href="javascript:void(0);" onclick="showCategory('hamburgueres')">Hambúrgueres</a>
-    <a href="javascript:void(0);" onclick="showCategory('bebidas')">Bebidas</a>
-    <a href="javascript:void(0);" onclick="showCategory('porcoes')">Porções</a>
-    <a href="javascript:void(0);" onclick="showCategory('drinks')">Drinks</a>
-    <a href="javascript:void(0);" onclick="showCategory('adicionais')">Adicionais</a>
-</div>
+        <!-- Menu -->
+        <section id="menu" class="hidden">
+            <h2>Cardápio</h2>
+            <div class="categories">
+                <button onclick="showCategory('hamburgers')">Hambúrgueres</button>
+                <button onclick="showCategory('beverages')">Bebidas</button>
+                <button onclick="showCategory('snacks')">Porções</button>
+                <button onclick="showCategory('drinks')">Drinks</button>
+                <button onclick="showCategory('extras')">Adicionais</button>
+            </div>
 
-<div class="container">
-    <!-- Exibe mesa escolhida -->
-    <div id="table-info" style="display: none;">
-        <h2>Mesa: <span id="selected-table"></span></h2>
-        <p>Faça o seu pedido</p>
-    </div>
+            <!-- Produtos -->
+            <div id="products">
+                <!-- Os produtos serão inseridos dinamicamente -->
+            </div>
+        </section>
 
-    <div class="table-selection" id="table-selection">
-        <h3>Selecione sua mesa:</h3>
-        <button onclick="selectTable(1)">Mesa 1</button>
-        <button onclick="selectTable(2)">Mesa 2</button>
-        <button onclick="selectTable(3)">Mesa 3</button>
-        <button onclick="selectTable(4)">Mesa 4</button>
-        <button onclick="selectTable(5)">Mesa 5</button>
-        <button onclick="selectTable(6)">Mesa 6</button>
-        <button onclick="selectTable(7)">Mesa 7</button>
-        <button onclick="selectTable(8)">Mesa 8</button>
-        <button onclick="selectTable(9)">Mesa 9</button>
-        <button onclick="selectTable(10)">Mesa 10</button>
-        <!-- Adicione mais botões de mesa se necessário -->
-    </div>
+        <!-- Carrinho -->
+        <section id="cart">
+            <h2>Seu Carrinho</h2>
+            <div id="cart-items">
+                <!-- Itens do carrinho serão inseridos dinamicamente -->
+            </div>
+            <div class="cart-footer">
+                <span>Total: R$ <span id="cart-total">0.00</span></span>
+                <button onclick="finalizeOrder()">Finalizar Pedido</button>
+            </div>
+        </section>
+    </main>
 
-    <!-- Categorias do Cardápio -->
-    <div class="menu-category" id="hamburgueres">
-        <h2>Hambúrgueres</h2>
-        <div class="menu-item" onclick="addToCart('Cheeseburger', 35.00)">
-            <img src="ham.jpg" alt="Cheeseburger" style="height: 50px; width: 50px; margin-right: 10px;">
-            <p>Cheeseburger</p>
-            <p class="price">R$ 35,00</p>
-        </div>
-        <div class="menu-item" onclick="addToCart('Bacon Burger', 38.00)">
-            <img src="imagens/cheeseburger.jpg" alt="Cheeseburger" style="height: 50px; width: 50px; margin-right: 10px;">
-            <p>Bacon Burger</p>
-            <p class="price">R$ 38,00</p>
-        </div>
-    </div>
-
-    <div class="menu-category" id="bebidas">
-        <h2>Bebidas</h2>
-        <div class="menu-item" onclick="addToCart('Coca-Cola', 8.00)">
-            <p>Coca-Cola</p>
-            <p class="price">R$ 8,00</p>
-        </div>
-        <div class="menu-item" onclick="addToCart('Suco de Laranja', 6.00)">
-            <p>Suco de Laranja</p>
-            <p class="price">R$ 6,00</p>
-        </div>
-    </div>
-
-    <div class="menu-category" id="porcoes">
-        <h2>Porções</h2>
-        <div class="menu-item" onclick="addToCart('Batata Frita', 20.00)">
-            <p>Batata Frita</p>
-            <p class="price">R$ 20,00</p>
-        </div>
-        <div class="menu-item" onclick="addToCart('Anéis de Cebola', 15.00)">
-            <p>Anéis de Cebola</p>
-            <p class="price">R$ 15,00</p>
-        </div>
-    </div>
-
-    <div class="menu-category" id="drinks">
-        <h2>Drinks</h2>
-        <div class="menu-item" onclick="addToCart('Mojito', 25.00)">
-            <p>Mojito</p>
-            <p class="price">R$ 25,00</p>
-        </div>
-        <div class="menu-item" onclick="addToCart('Caipirinha', 20.00)">
-            <p>Caipirinha</p>
-            <p class="price">R$ 20,00</p>
-        </div>
-    </div>
-
-    <div class="menu-category" id="adicionais">
-        <h2>Adicionais</h2>
-        <div class="menu-item" onclick="addToCart('Queijo Extra', 5.00)">
-            <p>Queijo Extra</p>
-            <p class="price">R$ 5,00</p>
-        </div>
-        <div class="menu-item" onclick="addToCart('Bacon Extra', 7.00)">
-            <p>Bacon Extra</p>
-            <p class="price">R$ 7,00</p>
-        </div>
-    </div>
-
-    <!-- Carrinho -->
-    <div class="cart">
-        <h3>Seu Pedido</h3>
-        <div id="cart-items"></div>
-        <div class="total" id="total">Total: R$ 0,00</div>
-
-        <!-- Formas de pagamento -->
-        <div class="payment-options">
-            <button onclick="selectPayment('Dinheiro')">Dinheiro</button>
-            <button onclick="selectPayment('Pix')">Pix</button>
-            <button onclick="selectPayment('Cartão')">Cartão</button>
-        </div>
-
-        <!-- Campo de Dinheiro -->
-        <div id="money-field">
-            <label for="money">Digite o valor pago:</label>
-            <input type="number" id="money" placeholder="Valor pago" oninput="handleMoneyInput()">
-        </div>
-
-        <!-- Código do Pix -->
-        <div id="pix-code">Faça o pagamento usando o código PIX: 1234567890</div>
-
-        <!-- Botão Enviar Pedido -->
-        <button onclick="sendOrder()">Enviar Pedido</button>
-    </div>
-</div>
-
-<script>
-    let selectedTable = null;
-    let cart = [];
-    let selectedPaymentMethod = '';  // Variável para armazenar a forma de pagamento
-    let amountPaid = 0;  // Variável para armazenar o valor pago pelo cliente
-
-    function showCategory(category) {
-        const categories = document.querySelectorAll('.menu-category');
-        categories.forEach(cat => cat.style.display = 'none');
-        const selectedCategory = document.getElementById(category);
-        if (selectedCategory) {
-            selectedCategory.style.display = 'block';
-        }
-    }
-
-    function selectTable(tableNumber) {
-        selectedTable = tableNumber;
-        document.getElementById("table-selection").style.display = "none"; 
-        document.getElementById("table-info").style.display = "block";
-        document.getElementById("selected-table").textContent = tableNumber;
-        alert("Mesa " + tableNumber + " selecionada.");
-    }
-
-    function addToCart(item, price) {
-        const existingItem = cart.find(i => i.item === item);
-        if (existingItem) {
-            existingItem.quantity += 1;
-        } else {
-            cart.push({ item, price, quantity: 1 });
-        }
-        updateCart();
-    }
-
-    function updateCart() {
-        const cartItemsDiv = document.getElementById("cart-items");
-        cartItemsDiv.innerHTML = "";
-        let total = 0;
-        cart.forEach(item => {
-            const div = document.createElement("div");
-            div.classList.add("cart-item");
-            div.innerHTML = `${item.item} - R$ ${item.price.toFixed(2)} x ${item.quantity}
-                             <button onclick="changeQuantity('${item.item}', -1)">-</button>
-                             <button onclick="changeQuantity('${item.item}', 1)">+</button>`;
-            cartItemsDiv.appendChild(div);
-            total += item.price * item.quantity;
-        });
-        document.getElementById("total").textContent = `Total: R$ ${total.toFixed(2)}`;
-    }
-
-    function changeQuantity(item, change) {
-        const cartItem = cart.find(i => i.item === item);
-        if (cartItem) {
-            cartItem.quantity += change;
-            if (cartItem.quantity <= 0) cartItem.quantity = 1;
-            updateCart();
-        }
-    }
-
-    function selectPayment(method) {
-        selectedPaymentMethod = method;  // Armazena a forma de pagamento escolhida
-        if (method === 'Pix') {
-            document.getElementById("pix-code").style.display = 'block';
-            document.getElementById("money-field").style.display = 'none';
-        } else if (method === 'Dinheiro') {
-            document.getElementById("pix-code").style.display = 'none';
-            document.getElementById("money-field").style.display = 'block';
-        } else if (method === 'Cartão') {
-            alert("Por favor, chame o garçom ou compareça ao balcão para efetuar o pagamento!");
-        }
-    }
-
-    function handleMoneyInput() {
-        amountPaid = parseFloat(document.getElementById("money").value) || 0;
-    }
-
-    function sendOrder() {
-        if (!selectedTable) {
-            alert("Selecione uma mesa primeiro.");
-            return;
-        }
-
-        const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
-        let cartText = `Mesa ${selectedTable}\n\n`;
-        cart.forEach(item => {
-            cartText += `${item.item} - R$ ${item.price.toFixed(2)} x ${item.quantity}\n`;
-        });
-        cartText += `\nTotal: R$ ${total.toFixed(2)}`;
-
-        // Adiciona a forma de pagamento ao texto
-        cartText += `\nForma de pagamento: ${selectedPaymentMethod}`;
-
-        // Se o pagamento for em dinheiro, calcula o troco
-        if (selectedPaymentMethod === 'Dinheiro') {
-            if (amountPaid < total) {
-                alert("Valor recebido é menor que o total.");
-                return;
-            }
-            const change = amountPaid - total;
-            cartText += `\nValor pago: R$ ${amountPaid.toFixed(2)}`;
-            cartText += `\nTroco: R$ ${change.toFixed(2)}`;
-        }
-
-        // Cria URL para enviar o pedido via WhatsApp
-        const encodedMessage = encodeURIComponent(cartText);
-        const whatsappUrl = `https://wa.me/5584996106961?text=${encodedMessage}`;
-
-        window.open(whatsappUrl, '_blank');
-
-        cart = [];
-        updateCart();
-    }
-</script>
-
+    <script src="script.js"></script>
 </body>
 </html>
