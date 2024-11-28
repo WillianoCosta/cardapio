@@ -10,59 +10,54 @@ function selectTable(tableNumber) {
   buttons.forEach(button => button.style.display = "none");
 }
 
-function addToCart(itemName, itemPrice) {
-  const existingItem = cart.find(item => item.name === itemName);
+function addToCart(item, price) {
+  const existingItem = cart.find(cartItem => cartItem.name === item);
   if (existingItem) {
-    existingItem.quantity += 1;
+    existingItem.quantity++;
   } else {
-    cart.push({ name: itemName, price: itemPrice, quantity: 1 });
+    cart.push({ name: item, price, quantity: 1 });
   }
   updateCart();
 }
 
 function updateCart() {
-  const cartItemsElement = document.getElementById("cart-items");
-  cartItemsElement.innerHTML = "";
+  const cartItems = document.getElementById("cart-items");
+  cartItems.innerHTML = "";
   cart.forEach(item => {
     const li = document.createElement("li");
-    li.innerHTML = `
-      ${item.name} - R$${item.price} x ${item.quantity}
-      <button onclick="decreaseQuantity('${item.name}')">-</button>
-      <button onclick="increaseQuantity('${item.name}')">+</button>
-    `;
-    cartItemsElement.appendChild(li);
+    li.textContent = `${item.name} x${item.quantity} - R$${item.price * item.quantity}`;
+    cartItems.appendChild(li);
   });
-}
-
-function decreaseQuantity(itemName) {
-  const item = cart.find(i => i.name === itemName);
-  if (item && item.quantity > 1) {
-    item.quantity--;
-    updateCart();
-  }
-}
-
-function increaseQuantity(itemName) {
-  const item = cart.find(i => i.name === itemName);
-  if (item) {
-    item.quantity++;
-    updateCart();
-  }
 }
 
 function selectPayment(method) {
   paymentMethod = method;
-  document.getElementById("payment-info").textContent = `Método de pagamento: ${method}`;
+  const paymentInfo = document.getElementById("payment-info");
+  paymentInfo.innerHTML = "";
+  if (method === "dinheiro") {
+    paymentInfo.innerHTML = `<label>Troco pra quanto?</label><input id="cash-input" type="number" placeholder="Ex: 100">`;
+  } else if (method === "cartão") {
+    paymentInfo.textContent = "Por favor, chame o garçom ou compareça ao balcão para efetuar o pagamento!";
+  } else if (method === "pix") {
+    paymentInfo.textContent = "Chave Pix: 5584996106961. Envie o comprovante para confirmação!";
+  }
 }
 
 function sendOrder() {
-  if (selectedTable && cart.length > 0 && paymentMethod) {
-    alert(`Pedido enviado para a mesa ${selectedTable}. Método de pagamento: ${paymentMethod}`);
-    cart = [];
-    updateCart();
-    document.getElementById("payment-info").textContent = "";
-    document.getElementById("confirmation-msg").textContent = "Pedido enviado!";
-  } else {
-    alert("Selecione uma mesa, adicione produtos ao carrinho e escolha o método de pagamento.");
+  const cashInput = document.getElementById("cash-input");
+  let trocoInfo = "";
+  if (paymentMethod === "dinheiro" && cashInput) {
+    const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const cash = parseFloat(cashInput.value);
+    const troco = cash - total;
+    trocoInfo = `Valor pago: R$${cash}, Troco: R$${troco.toFixed(2)}`;
   }
+
+  const message = `
+Mesa: ${selectedTable}
+Pedido: ${cart.map(item => `${item.name} x${item.quantity}`).join(", ")}
+Forma de pagamento: ${paymentMethod}
+${trocoInfo}
+  `;
+  window.open(`https://wa.me/5584996106961?text=${encodeURIComponent(message)}`);
 }
