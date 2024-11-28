@@ -1,202 +1,68 @@
-/* Reset de estilo */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+let cart = [];
+let selectedTable = null;
+let paymentMethod = null;
+
+function selectTable(tableNumber) {
+  selectedTable = tableNumber;
+  document.getElementById("table-title").textContent = `Mesa ${tableNumber}`;
+  document.getElementById("confirmation-msg").textContent = "Faça seu pedido!";
+  const buttons = document.querySelectorAll(".table-btn");
+  buttons.forEach(button => button.style.display = "none");
 }
 
-body {
-  font-family: Arial, sans-serif;
-  background-color: #000;
-  color: #fff;
-  line-height: 1.6;
-  margin: 0;
-  padding: 0;
+function addToCart(itemName, itemPrice) {
+  const existingItem = cart.find(item => item.name === itemName);
+  if (existingItem) {
+    existingItem.quantity += 1;
+  } else {
+    cart.push({ name: itemName, price: itemPrice, quantity: 1 });
+  }
+  updateCart();
 }
 
-header {
-  text-align: center;
-  background-color: #f4a20c;
-  padding: 15px 0;
-  border-bottom: 5px solid #e58c0b;
+function updateCart() {
+  const cartItemsElement = document.getElementById("cart-items");
+  cartItemsElement.innerHTML = "";
+  cart.forEach(item => {
+    const li = document.createElement("li");
+    li.innerHTML = `
+      ${item.name} - R$${item.price} x ${item.quantity}
+      <button onclick="decreaseQuantity('${item.name}')">-</button>
+      <button onclick="increaseQuantity('${item.name}')">+</button>
+    `;
+    cartItemsElement.appendChild(li);
+  });
 }
 
-header .logo {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  margin-bottom: 10px;
+function decreaseQuantity(itemName) {
+  const item = cart.find(i => i.name === itemName);
+  if (item && item.quantity > 1) {
+    item.quantity--;
+    updateCart();
+  }
 }
 
-header h1 {
-  font-size: 24px;
-  color: #fff;
-  text-shadow: 2px 2px #000;
+function increaseQuantity(itemName) {
+  const item = cart.find(i => i.name === itemName);
+  if (item) {
+    item.quantity++;
+    updateCart();
+  }
 }
 
-#table-selection {
-  text-align: center;
-  padding: 20px;
-  background-color: #000;
+function selectPayment(method) {
+  paymentMethod = method;
+  document.getElementById("payment-info").textContent = `Método de pagamento: ${method}`;
 }
 
-#table-title {
-  font-size: 18px;
-  margin-bottom: 15px;
-  color: #f4a20c;
+function sendOrder() {
+  if (selectedTable && cart.length > 0 && paymentMethod) {
+    alert(`Pedido enviado para a mesa ${selectedTable}. Método de pagamento: ${paymentMethod}`);
+    cart = [];
+    updateCart();
+    document.getElementById("payment-info").textContent = "";
+    document.getElementById("confirmation-msg").textContent = "Pedido enviado!";
+  } else {
+    alert("Selecione uma mesa, adicione produtos ao carrinho e escolha o método de pagamento.");
+  }
 }
-
-.table-btn {
-  background-color: #f4a20c;
-  border: none;
-  color: #fff;
-  padding: 10px 15px;
-  margin: 5px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.table-btn:hover {
-  background-color: #e58c0b;
-  transform: scale(1.05);
-}
-
-#confirmation-msg {
-  margin-top: 15px;
-  font-size: 18px;
-  color: #f4a20c;
-}
-
-main {
-  padding: 20px;
-}
-
-#menu {
-  background-color: #000;
-  border: 2px solid #f4a20c;
-  border-radius: 10px;
-  padding: 20px;
-  margin-bottom: 20px;
-}
-
-#menu h2 {
-  text-align: center;
-  font-size: 22px;
-  color: #f4a20c;
-  margin-bottom: 20px;
-}
-
-.category {
-  margin-bottom: 20px;
-}
-
-.category h3 {
-  color: #fff;
-  font-size: 20px;
-  margin-bottom: 10px;
-  border-bottom: 2px solid #f4a20c;
-  padding-bottom: 5px;
-}
-
-.menu-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 10px 0;
-  padding: 10px;
-  background-color: #222;
-  border-radius: 8px;
-}
-
-.menu-item p {
-  color: #f4a20c;
-  font-size: 16px;
-  margin: 0;
-}
-
-.menu-item button {
-  background-color: #f4a20c;
-  border: none;
-  color: #fff;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.menu-item button:hover {
-  background-color: #e58c0b;
-}
-
-#cart {
-  background-color: #222;
-  border: 2px solid #f4a20c;
-  border-radius: 10px;
-  padding: 20px;
-}
-
-#cart h2 {
-  text-align: center;
-  font-size: 22px;
-  color: #f4a20c;
-  margin-bottom: 20px;
-}
-
-#cart-items {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 15px 0;
-  color: #fff;
-}
-
-#cart-items li {
-  margin-bottom: 10px;
-  border-bottom: 1px solid #f4a20c;
-  padding-bottom: 5px;
-}
-
-#payment-methods {
-  display: flex;
-  justify-content: space-around;
-  margin: 15px 0;
-}
-
-#payment-methods button {
-  background-color: #f4a20c;
-  border: none;
-  color: #fff;
-  padding: 10px 20px;
-  border-radius: 8px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-#payment-methods button:hover {
-  background-color: #e58c0b;
-  transform: scale(1.05);
-}
-
-#payment-info {
-  text-align: center;
-  margin-top: 10px;
-  color: #f4a20c;
-  font-size: 16px;
-}
-
-#send-order-btn {
-  background-color: #f4a20c;
-  border: none;
-  color: #fff;
-  padding: 10px 20px;
-  font-size: 18px;
-  cursor: pointer;
-  border-radius: 8px;
-  margin-top: 20px;
-  display: block;
-  width: 100%;
-}
-
-#send-order-btn:hover {
-  background-color: #e58c0b;
-}
-
