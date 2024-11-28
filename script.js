@@ -1,96 +1,202 @@
-let cart = [];
-const menu = {
-    hamburgers: [
-        { id: 1, name: "Cheeseburger", price: 15.00 },
-        { id: 2, name: "Bacon Burger", price: 18.00 },
-    ],
-    beverages: [
-        { id: 3, name: "Coca-Cola", price: 5.00 },
-        { id: 4, name: "Água", price: 3.00 },
-    ],
-    snacks: [
-        { id: 5, name: "Batata Frita", price: 10.00 },
-        { id: 6, name: "Onion Rings", price: 12.00 },
-    ],
-    drinks: [
-        { id: 7, name: "Caipirinha", price: 20.00 },
-        { id: 8, name: "Mojito", price: 22.00 },
-    ],
-    extras: [
-        { id: 9, name: "Molho Especial", price: 2.00 },
-        { id: 10, name: "Queijo Extra", price: 3.00 },
-    ],
-};
-
-function startOrder() {
-    const table = document.getElementById("table-number").value;
-    if (!table) {
-        alert("Por favor, insira o número da mesa.");
-        return;
-    }
-    document.getElementById("menu").classList.remove("hidden");
+/* Reset de estilo */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-function showCategory(category) {
-    const productsDiv = document.getElementById("products");
-    productsDiv.innerHTML = "";
-    menu[category].forEach(item => {
-        const productDiv = document.createElement("div");
-        productDiv.classList.add("product");
-        productDiv.innerHTML = `
-            <h3>${item.name}</h3>
-            <p>R$ ${item.price.toFixed(2)}</p>
-            <button onclick="addToCart(${item.id}, '${item.name}', ${item.price})">Adicionar</button>
-        `;
-        productsDiv.appendChild(productDiv);
-    });
+body {
+  font-family: Arial, sans-serif;
+  background-color: #000;
+  color: #fff;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
 }
 
-function addToCart(id, name, price) {
-    const item = cart.find(i => i.id === id);
-    if (item) {
-        item.quantity++;
-    } else {
-        cart.push({ id, name, price, quantity: 1 });
-    }
-    updateCart();
+header {
+  text-align: center;
+  background-color: #f4a20c;
+  padding: 15px 0;
+  border-bottom: 5px solid #e58c0b;
 }
 
-function updateCart() {
-    const cartDiv = document.getElementById("cart-items");
-    cartDiv.innerHTML = "";
-    let total = 0;
-    cart.forEach(item => {
-        total += item.price * item.quantity;
-        const cartItemDiv = document.createElement("div");
-        cartItemDiv.classList.add("cart-item");
-        cartItemDiv.innerHTML = `
-            <span>${item.name} x${item.quantity}</span>
-            <span>R$ ${(item.price * item.quantity).toFixed(2)}</span>
-            <button onclick="changeQuantity(${item.id}, -1)">-</button>
-            <button onclick="changeQuantity(${item.id}, 1)">+</button>
-        `;
-        cartDiv.appendChild(cartItemDiv);
-    });
-    document.getElementById("cart-total").innerText = total.toFixed(2);
+header .logo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 10px;
 }
 
-function changeQuantity(id, amount) {
-    const item = cart.find(i => i.id === id);
-    if (!item) return;
-    item.quantity += amount;
-    if (item.quantity <= 0) {
-        cart = cart.filter(i => i.id !== id);
-    }
-    updateCart();
+header h1 {
+  font-size: 24px;
+  color: #fff;
+  text-shadow: 2px 2px #000;
 }
 
-function finalizeOrder() {
-    if (cart.length === 0) {
-        alert("O carrinho está vazio!");
-        return;
-    }
-    alert("Pedido finalizado! Obrigado por escolher o Empório Burguer.");
-    cart = [];
-    updateCart();
+#table-selection {
+  text-align: center;
+  padding: 20px;
+  background-color: #000;
 }
+
+#table-title {
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: #f4a20c;
+}
+
+.table-btn {
+  background-color: #f4a20c;
+  border: none;
+  color: #fff;
+  padding: 10px 15px;
+  margin: 5px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.table-btn:hover {
+  background-color: #e58c0b;
+  transform: scale(1.05);
+}
+
+#confirmation-msg {
+  margin-top: 15px;
+  font-size: 18px;
+  color: #f4a20c;
+}
+
+main {
+  padding: 20px;
+}
+
+#menu {
+  background-color: #000;
+  border: 2px solid #f4a20c;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+#menu h2 {
+  text-align: center;
+  font-size: 22px;
+  color: #f4a20c;
+  margin-bottom: 20px;
+}
+
+.category {
+  margin-bottom: 20px;
+}
+
+.category h3 {
+  color: #fff;
+  font-size: 20px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #f4a20c;
+  padding-bottom: 5px;
+}
+
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+  padding: 10px;
+  background-color: #222;
+  border-radius: 8px;
+}
+
+.menu-item p {
+  color: #f4a20c;
+  font-size: 16px;
+  margin: 0;
+}
+
+.menu-item button {
+  background-color: #f4a20c;
+  border: none;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.menu-item button:hover {
+  background-color: #e58c0b;
+}
+
+#cart {
+  background-color: #222;
+  border: 2px solid #f4a20c;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+#cart h2 {
+  text-align: center;
+  font-size: 22px;
+  color: #f4a20c;
+  margin-bottom: 20px;
+}
+
+#cart-items {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 15px 0;
+  color: #fff;
+}
+
+#cart-items li {
+  margin-bottom: 10px;
+  border-bottom: 1px solid #f4a20c;
+  padding-bottom: 5px;
+}
+
+#payment-methods {
+  display: flex;
+  justify-content: space-around;
+  margin: 15px 0;
+}
+
+#payment-methods button {
+  background-color: #f4a20c;
+  border: none;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#payment-methods button:hover {
+  background-color: #e58c0b;
+  transform: scale(1.05);
+}
+
+#payment-info {
+  text-align: center;
+  margin-top: 10px;
+  color: #f4a20c;
+  font-size: 16px;
+}
+
+#send-order-btn {
+  background-color: #f4a20c;
+  border: none;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 8px;
+  margin-top: 20px;
+  display: block;
+  width: 100%;
+}
+
+#send-order-btn:hover {
+  background-color: #e58c0b;
+}
+
