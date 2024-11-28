@@ -1,55 +1,76 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Empório Burguer - Cardápio Digital</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Empório Burguer</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <h1>Empório Burguer</h1>
-        <p>Escolha sua mesa e faça seu pedido!</p>
-    </header>
+  <header>
+    <img src="logo.png" alt="Empório Burguer" class="logo">
+    <h1>Empório Burguer</h1>
+  </header>
 
-    <main>
-        <!-- Seleção de Mesa -->
-        <section class="table-selection">
-            <label for="table-number">Número da Mesa:</label>
-            <input type="number" id="table-number" placeholder="Digite aqui..." min="1">
-            <button onclick="startOrder()">Iniciar Pedido</button>
-        </section>
+  <section id="table-selection">
+    <h2 id="table-title">Escolha sua mesa:</h2>
+    <div id="table-buttons">
+      <!-- Botões de mesas -->
+      <button class="table-btn" onclick="selectTable(1)">Mesa 1</button>
+      <button class="table-btn" onclick="selectTable(2)">Mesa 2</button>
+      <button class="table-btn" onclick="selectTable(3)">Mesa 3</button>
+      <button class="table-btn" onclick="selectTable(4)">Mesa 4</button>
+      <button class="table-btn" onclick="selectTable(5)">Mesa 5</button>
+      <button class="table-btn" onclick="selectTable(6)">Mesa 6</button>
+      <button class="table-btn" onclick="selectTable(7)">Mesa 7</button>
+      <button class="table-btn" onclick="selectTable(8)">Mesa 8</button>
+      <button class="table-btn" onclick="selectTable(9)">Mesa 9</button>
+      <button class="table-btn" onclick="selectTable(10)">Mesa 10</button>
+    </div>
+    <p id="confirmation-msg"></p>
+  </section>
 
-        <!-- Menu -->
-        <section id="menu" class="hidden">
-            <h2>Cardápio</h2>
-            <div class="categories">
-                <button onclick="showCategory('hamburgers')">Hambúrgueres</button>
-                <button onclick="showCategory('beverages')">Bebidas</button>
-                <button onclick="showCategory('snacks')">Porções</button>
-                <button onclick="showCategory('drinks')">Drinks</button>
-                <button onclick="showCategory('extras')">Adicionais</button>
-            </div>
+  <main>
+    <section id="menu">
+      <h2>Cardápio</h2>
+      <!-- Categorias -->
+      <div class="category">
+        <h3>Hambúrgueres</h3>
+        <div class="menu-item">
+          <p>Cheeseburger</p>
+          <button onclick="addToCart('Cheeseburger', 20)">Adicionar - R$20</button>
+        </div>
+        <div class="menu-item">
+          <p>Bacon Burger</p>
+          <button onclick="addToCart('Bacon Burger', 25)">Adicionar - R$25</button>
+        </div>
+      </div>
+      <div class="category">
+        <h3>Bebidas</h3>
+        <div class="menu-item">
+          <p>Refrigerante</p>
+          <button onclick="addToCart('Refrigerante', 7)">Adicionar - R$7</button>
+        </div>
+        <div class="menu-item">
+          <p>Água</p>
+          <button onclick="addToCart('Água', 5)">Adicionar - R$5</button>
+        </div>
+      </div>
+      <!-- Outras categorias podem ser adicionadas aqui -->
+    </section>
+    <section id="cart">
+      <h2>Carrinho</h2>
+      <ul id="cart-items"></ul>
+      <div id="payment-methods">
+        <button onclick="selectPayment('dinheiro')">Dinheiro</button>
+        <button onclick="selectPayment('cartão')">Cartão</button>
+        <button onclick="selectPayment('pix')">Pix</button>
+      </div>
+      <div id="payment-info"></div>
+      <button id="send-order-btn" onclick="sendOrder()">Enviar Pedido</button>
+    </section>
+  </main>
 
-            <!-- Produtos -->
-            <div id="products">
-                <!-- Os produtos serão inseridos dinamicamente -->
-            </div>
-        </section>
-
-        <!-- Carrinho -->
-        <section id="cart">
-            <h2>Seu Carrinho</h2>
-            <div id="cart-items">
-                <!-- Itens do carrinho serão inseridos dinamicamente -->
-            </div>
-            <div class="cart-footer">
-                <span>Total: R$ <span id="cart-total">0.00</span></span>
-                <button onclick="finalizeOrder()">Finalizar Pedido</button>
-            </div>
-        </section>
-    </main>
-
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
