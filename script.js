@@ -23,11 +23,44 @@ function addToCart(item, price) {
 function updateCart() {
   const cartItems = document.getElementById("cart-items");
   cartItems.innerHTML = "";
-  cart.forEach(item => {
+  let total = 0;
+
+  cart.forEach((item, index) => {
+    total += item.price * item.quantity;
+
     const li = document.createElement("li");
-    li.textContent = `${item.name} x${item.quantity} - R$${item.price * item.quantity}`;
+    li.innerHTML = `
+      ${item.name} x${item.quantity} - R$${(item.price * item.quantity).toFixed(2)}
+      <button onclick="adjustQuantity(${index}, 1)">+</button>
+      <button onclick="adjustQuantity(${index}, -1)">-</button>
+      <button onclick="removeFromCart(${index})">Remover</button>
+    `;
     cartItems.appendChild(li);
   });
+
+  const totalElement = document.getElementById("cart-total");
+  if (!totalElement) {
+    const totalDiv = document.createElement("div");
+    totalDiv.id = "cart-total";
+    totalDiv.textContent = `Total: R$${total.toFixed(2)}`;
+    document.getElementById("cart").appendChild(totalDiv);
+  } else {
+    totalElement.textContent = `Total: R$${total.toFixed(2)}`;
+  }
+}
+
+function adjustQuantity(index, amount) {
+  cart[index].quantity += amount;
+
+  if (cart[index].quantity <= 0) {
+    cart.splice(index, 1); // Remove o item se a quantidade for 0
+  }
+  updateCart();
+}
+
+function removeFromCart(index) {
+  cart.splice(index, 1); // Remove o item do carrinho
+  updateCart();
 }
 
 function selectPayment(method) {
@@ -46,8 +79,9 @@ function selectPayment(method) {
 function sendOrder() {
   const cashInput = document.getElementById("cash-input");
   let trocoInfo = "";
+  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
   if (paymentMethod === "dinheiro" && cashInput) {
-    const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
     const cash = parseFloat(cashInput.value);
     const troco = cash - total;
     trocoInfo = `Valor pago: R$${cash}, Troco: R$${troco.toFixed(2)}`;
@@ -57,6 +91,7 @@ function sendOrder() {
 Mesa: ${selectedTable}
 Pedido: ${cart.map(item => `${item.name} x${item.quantity}`).join(", ")}
 Forma de pagamento: ${paymentMethod}
+Total: R$${total.toFixed(2)}
 ${trocoInfo}
   `;
   window.open(`https://wa.me/5584996106961?text=${encodeURIComponent(message)}`);
