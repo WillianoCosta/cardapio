@@ -1,98 +1,201 @@
-let cart = [];
-let selectedTable = null;
-let paymentMethod = null;
-
-function selectTable(tableNumber) {
-  selectedTable = tableNumber;
-  document.getElementById("table-title").textContent = `Mesa ${tableNumber}`;
-  document.getElementById("confirmation-msg").textContent = "Faça seu pedido!";
-  const buttons = document.querySelectorAll(".table-btn");
-  buttons.forEach(button => button.style.display = "none");
-}
-
-function addToCart(item, price) {
-  const existingItem = cart.find(cartItem => cartItem.name === item);
-  if (existingItem) {
-    existingItem.quantity++;
-  } else {
-    cart.push({ name: item, price, quantity: 1 });
+/* Reset de estilo */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
   }
-  updateCart();
-}
-
-function updateCart() {
-  const cartItems = document.getElementById("cart-items");
-  cartItems.innerHTML = "";
-  let total = 0;
-
-  cart.forEach((item, index) => {
-    total += item.price * item.quantity;
-
-    const li = document.createElement("li");
-    li.innerHTML = `
-      ${item.name} x${item.quantity} - R$${(item.price * item.quantity).toFixed(2)}
-      <button onclick="adjustQuantity(${index}, 1)">+</button>
-      <button onclick="adjustQuantity(${index}, -1)">-</button>
-      <button onclick="removeFromCart(${index})">Remover</button>
-    `;
-    cartItems.appendChild(li);
-  });
-
-  const totalElement = document.getElementById("cart-total");
-  if (!totalElement) {
-    const totalDiv = document.createElement("div");
-    totalDiv.id = "cart-total";
-    totalDiv.textContent = `Total: R$${total.toFixed(2)}`;
-    document.getElementById("cart").appendChild(totalDiv);
-  } else {
-    totalElement.textContent = `Total: R$${total.toFixed(2)}`;
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #000;
+    color: #fff;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
   }
-}
-
-function adjustQuantity(index, amount) {
-  cart[index].quantity += amount;
-
-  if (cart[index].quantity <= 0) {
-    cart.splice(index, 1); // Remove o item se a quantidade for 0
+  
+  header {
+    text-align: center;
+    background-color: #f4a20c;
+    padding: 15px 0;
+    border-bottom: 5px solid #e58c0b;
   }
-  updateCart();
-}
-
-function removeFromCart(index) {
-  cart.splice(index, 1); // Remove o item do carrinho
-  updateCart();
-}
-
-function selectPayment(method) {
-  paymentMethod = method;
-  const paymentInfo = document.getElementById("payment-info");
-  paymentInfo.innerHTML = "";
-  if (method === "dinheiro") {
-    paymentInfo.innerHTML = `<label>Troco pra quanto?</label><input id="cash-input" type="number" placeholder="Ex: 100">`;
-  } else if (method === "cartão") {
-    paymentInfo.textContent = "Por favor, chame o garçom ou compareça ao balcão para efetuar o pagamento!";
-  } else if (method === "pix") {
-    paymentInfo.textContent = "Chave Pix: 5584996106961. Envie o comprovante para confirmação!";
+  
+  header .logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 10px;
   }
-}
-
-function sendOrder() {
-  const cashInput = document.getElementById("cash-input");
-  let trocoInfo = "";
-  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-
-  if (paymentMethod === "dinheiro" && cashInput) {
-    const cash = parseFloat(cashInput.value);
-    const troco = cash - total;
-    trocoInfo = `Valor pago: R$${cash}, Troco: R$${troco.toFixed(2)}`;
+  
+  header h1 {
+    font-size: 24px;
+    color: #fff;
+    text-shadow: 2px 2px #000;
   }
-
-  const message = `
-Mesa: ${selectedTable}
-Pedido: ${cart.map(item => `${item.name} x${item.quantity}`).join(", ")}
-Forma de pagamento: ${paymentMethod}
-Total: R$${total.toFixed(2)}
-${trocoInfo}
-  `;
-  window.open(`https://wa.me/5584996106961?text=${encodeURIComponent(message)}`);
-}
+  
+  #table-selection {
+    text-align: center;
+    padding: 20px;
+    background-color: #000;
+  }
+  
+  #table-title {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #f4a20c;
+  }
+  
+  .table-btn {
+    background-color: #f4a20c;
+    border: none;
+    color: #fff;
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .table-btn:hover {
+    background-color: #080000;
+    transform: scale(1.05);
+  }
+  
+  #confirmation-msg {
+    margin-top: 15px;
+    font-size: 18px;
+    color: #f7f5f2;
+  }
+  
+  main {
+    padding: 2px;
+  }
+  
+  #menu {
+    background-color: #000;
+    border: 1px solid #f4a20c;
+    border-radius: 10px;
+    padding: 5px;
+    margin-bottom: 20px;
+  }
+  
+  #menu h2 {
+    text-align: center;
+    font-size: 22px;
+    color: #f4a20c;
+    margin-bottom: 20px;
+  }
+  
+  .category {
+    margin-bottom: 20px;
+  }
+  
+  .category h3 {
+    color: #fff;
+    font-size: 20px;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #f4a20c;
+    padding-bottom: 5px;
+  }
+  
+  .menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+    padding: 15px;
+    background-color: #222;
+    border-radius: 8px;
+  }
+  
+  .menu-item p {
+    color: #f4a20c;
+    font-size: 14px;
+    margin: 0;
+  }
+  
+  .menu-item button {
+    background-color: #f4a20c;
+    border: none;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .menu-item button:hover {
+    background-color: #e58c0b;
+  }
+  
+  #cart {
+    background-color: #222;
+    border: 1px solid #f4a20c;
+    border-radius: 10px;
+    padding: 20px;
+  }
+  
+  #cart h2 {
+    text-align: center;
+    font-size: 22px;
+    color: #f4a20c;
+    margin-bottom: 20px;
+  }
+  
+  #cart-items {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 15px 0;
+    color: #fff;
+  }
+  
+  #cart-items li {
+    margin-bottom: 10px;
+    border-bottom: 0px solid #f4a20c;
+    padding-bottom: 5px;
+  }
+  
+  #payment-methods {
+    display: flex;
+    justify-content: space-around;
+    margin: 15px 0;
+  }
+  
+  #payment-methods button {
+    background-color: #f4a20c;
+    border: none;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  #payment-methods button:hover {
+    background-color: #222;
+    transform: scale(1.05);
+  }
+  
+  #payment-info {
+    text-align: center;
+    margin-top: 10px;
+    color: #f4a20c;
+    font-size: 16px;
+  }
+  
+  #send-order-btn {
+    background-color: #f4a20c;
+    border: none;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 8px;
+    margin-top: 20px;
+    display: block;
+    width: 100%;
+  }
+  
+  #send-order-btn:hover {
+    background-color: #222;
+  }
