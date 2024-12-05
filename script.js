@@ -31,8 +31,13 @@ function updateCart() {
     const li = document.createElement("li");
     li.innerHTML = `
       ${item.name} x${item.quantity} - R$${(item.price * item.quantity).toFixed(2)}
-      <button onclick="adjustQuantity(${index},1)">+</button>
-      <button onclick="adjustQuantity(${index},-1)">-</button>
+      <div class="adjust-buttons">
+        <button class="adjust-btn plus-btn" onclick="adjustQuantity(${index}, 1)">+</button>
+        <button class="adjust-btn minus-btn" onclick="adjustQuantity(${index}, -1)">-</button>
+      </div>
+      <button class="remove-btn" onclick="removeFromCart(${index})">
+        <i class="fas fa-trash"></i>
+      </button>
     `;
     cartItems.appendChild(li);
   });
