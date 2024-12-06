@@ -251,4 +251,15 @@
 .remove-btn:hover {
   color: #c82333;
 }
+.menu-item:hover {
+            background-color: #ffffff;
+            color: #fff;
+        }
 
+        /* Responsividade */
+        @media (max-width: 600px) {
+            .menu-item {
+                font-size: 14px; /* Reduz tamanho do texto em telas menores */
+                padding: 8px 16px;
+            }
+        }
